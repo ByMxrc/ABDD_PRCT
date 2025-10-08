@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  postgres_quito:
+    image: postgres:17
+    container_name: postgres_quito
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vetdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_pass
+    ports:
+      - "5543:5432"
+    command: >
+      postgres
+        -c wal_level=logical
+        -c max_wal_senders=10
+        -c max_replication_slots=10
+        -c listen_addresses='*'
+
+  postgres_guayaquil:
+    image: postgres:17
+    container_name: postgres_guayaquil
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vetdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_pass
+    ports:
+      - "5544:5432"
+
+  postgres_cuenca:
+    image: postgres:17
+    container_name: postgres_cuenca
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vetdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_pass
+    ports:
+      - "5545:5432"
