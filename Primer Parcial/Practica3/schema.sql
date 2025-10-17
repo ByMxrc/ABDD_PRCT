@@ -25,3 +25,10 @@ CREATE TABLE contratos (
 CREATE INDEX idx_contratos_origen ON contratos(origen);
 CREATE INDEX idx_contratos_propiedad ON contratos(propiedad_id);
 
+CREATE ROLE replicador WITH LOGIN REPLICATION PASSWORD 'repl_pass';
+CREATE ROLE consulta WITH LOGIN PASSWORD 'consulta_pass';
+CREATE ROLE administracion WITH LOGIN PASSWORD 'admin_pass';
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO consulta;
+GRANT INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO administracion;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO consulta;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT INSERT, UPDATE, DELETE ON TABLES TO administracion;
